@@ -6,7 +6,7 @@ Perform backups using mydumper.
 
 #### Requirements
 
-* `mydumper`
+* `mydumper` (will not be installed)
 
 #### Variables
 
