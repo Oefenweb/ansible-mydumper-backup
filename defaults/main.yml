@@ -1,0 +1,3 @@
+---
+# defaults file for mydumper-backup
+mydumper_backup_install_dir: /usr/local/bin
