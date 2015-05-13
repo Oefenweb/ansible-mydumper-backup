@@ -10,7 +10,17 @@ Perform backups using mydumper.
 
 #### Variables
 
-* `mydumper_backup_install_dir` [default: `/usr/local/bin`]: Install directory
+* `mydumper_backup_install_dir`: [default: `/usr/local/bin`]: Install directory
+* `mydumper_backup_mydumper_path`: [default: `/usr/local/bin`]: Path to `mydumper`
+
+* `mydumper_backup_databases`: [default: `[]`]: Database(s) to dump
+* `mydumper_backup_outputdir`: [default: `/tmp`]: Directory to output files to
+* `mydumper_backup_host`: The host to connect to (**optional**)
+* `mydumper_backup_user`: Username with privileges to run the dump (**optional**)
+* `mydumper_backup_password`: User password (**optional**)
+* `mydumper_backup_threads`: [default: `4`]: Number of threads to use (**optional**, e.g. `"{{ (ansible_processor_vcpus / 2) | round(0, 'ceil') }}"`)
+* `mydumper_backup_compress`: [default: `false`]: Compress output files (**optional**)
+* `mydumper_backup_build_empty_files`: [default: `false`]: Build dump files even if no data available from table (**optional**)
 
 ## Dependencies
 

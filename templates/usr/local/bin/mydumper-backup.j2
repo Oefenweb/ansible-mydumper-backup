@@ -1,0 +1,45 @@
+#!/usr/bin/env python
+
+# -*- coding: utf-8 -*-
+
+# {{ ansible_managed }}
+
+import json
+import os
+import subprocess
+import sys
+
+
+databases = json.loads('{{ mydumper_backup_databases | to_json }}')
+for database in databases:
+  command = []
+  command.append(os.path.join('{{ mydumper_backup_mydumper_path }}', 'mydumper'))
+  {% if mydumper_backup_host is defined -%}
+  command.extend(['--host', '{{ mydumper_backup_host }}'])
+  {% endif -%}
+  {% if mydumper_backup_user is defined -%}
+  command.extend(['--user', '{{ mydumper_backup_user }}'])
+  {% endif -%}
+  {% if mydumper_backup_password is defined -%}
+  command.extend(['--password', '{{ mydumper_backup_password }}'])
+  {% endif -%}
+  command.extend(['--database', database])
+  {% if mydumper_backup_threads is defined -%}
+  command.extend(['--threads', {{ mydumper_backup_threads | int }}])
+  {% endif -%}
+  {% if mydumper_backup_compress is defined and mydumper_backup_compress | bool == true -%}
+  command.append('--compress')
+  {% endif -%}
+  {% if mydumper_backup_build_empty_files is defined and mydumper_backup_build_empty_files | bool == true -%}
+  command.append('--build-empty-files')
+  {% endif -%}
+  command.extend(['--outputdir', '{{ mydumper_backup_outputdir }}'])
+  {% if mydumper_backup_verbose is defined -%}
+  command.extend(['--verbose', {{ mydumper_backup_verbose | int }}])
+  {% endif %}
+
+  return_value = subprocess.call(map(str, command))
+  if return_value != 0:
+    sys.exit(return_value)
+
+sys.exit(0)
