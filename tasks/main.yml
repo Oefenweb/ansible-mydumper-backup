@@ -1,0 +1,11 @@
+---
+# tasks file for mydumper-backup
+- name: generate script
+  template:
+    src: usr/local/bin/mydumper-backup.j2
+    dest: "{{ mydumper_backup_install_dir }}/mydumper-backup"
+    owner: root
+    group: root
+    mode: 0755
+    validate: 'python -m py_compile %s'
+  tags: [configuration, mydumper-backup, mydumper-backup-configuration]

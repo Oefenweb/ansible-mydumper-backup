@@ -1,0 +1,40 @@
+---
+language: python
+python: "2.7"
+
+env:
+  - ANSIBLE_VERSION=1.4
+  - ANSIBLE_VERSION=1.5
+  - ANSIBLE_VERSION=1.6
+  - ANSIBLE_VERSION=1.7
+  - ANSIBLE_VERSION=1.8
+
+before_install:
+  - sudo apt-get update -qq
+
+install:
+  # Install Ansible.
+  - pip install ansible==$ANSIBLE_VERSION
+
+  # Add ansible.cfg to pick up roles path.
+  - printf "[defaults]\nroles_path = ../" > ansible.cfg
+
+script:
+  # Check the role/playbook's syntax.
+  - ansible-playbook -i tests/inventory tests/test.yml --syntax-check
+
+  # Run the role/playbook with ansible-playbook.
+  - ansible-playbook -i tests/inventory tests/test.yml --connection=local --sudo -vvvv
+
+  # Run the role/playbook again, checking to make sure it's idempotent.
+  - >
+    ansible-playbook -i tests/inventory tests/test.yml --connection=local --sudo
+    | grep -q 'changed=0.*failed=0'
+    && (echo 'Idempotence test: pass' && exit 0)
+    || (echo 'Idempotence test: fail' && exit 1)
+
+notifications:
+  email: false
+  hipchat:
+    rooms:
+      secure: ePX1rAPeAb0UdURqSNErXXQwWoDxFh/pWsr6Pu0lneljYP//J78eIe+RuWB/pX6Y0lZZqpMSz6GFIzej3SMwzbKkYfX3lcwpSMF0HNTS70xd5BwNd2P2zRRKTP5+HVG0kV/In4eL9LEuKPxY1/aQKUuCPaMgW8/j0Xkm1HsjWbykZ8RGZCrjvtMXfOk9ARVaiT8rlB4WIQ23X4BaGPoZc27lmMgI+92AFZhHj6Khd/o9tfEClpCVMFsVVP7cYyaEb6FkDkeKVfgWY/5Edc8+t5QnHhC3VOAXHefbE3T6gCXiSlfexuQ+Fq84XSE1ENZBhcBHOq2wSKL0ujr0vDW1xTkvm0Y/mL58CvU/mllzX/kHda3enYneFvc1zk7gHSNYnoA77xa/ZMiIpn3DwUjNGY9PfEDN7CGBCFy/6PZCdwsR6iZLi8LHdivUJLU3IgWq1I3OHvViH7kzVePhuplj98kqh3qysY3onXUXKMbNp7snHnyXcxLeuiolfsFg86g8JUajjtW7A5Mk1cQP6rKAzAayZ/M1cYwp7+Cri/6xXriSjbVCCqyJPrHSzH8fGSJYjzqquVLL5jDGroKJJ2Z0qb6tWnBH/vp/hfBWuM4y3v3ihwFcEPjDjaXS9P3bOHiOLJ3ozFKLDxYyKOC9fsDalunWADVL5R2R1ZIR4XxLb34=
