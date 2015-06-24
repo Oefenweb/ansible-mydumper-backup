@@ -1,11 +1,21 @@
 ---
 # tasks file for mydumper-backup
+- name: create (output) directories
+  file:
+    path: "{{ mydumper_backup_outputdir }}/{{ item }}/"
+    state: directory
+    owner: root
+    group: root
+    mode: 0750
+  with_items: mydumper_backup_databases
+  tags: [configuration, mydumper-backup, mydumper-backup-configuration]
+
 - name: generate script
   template:
     src: usr/local/bin/mydumper-backup.j2
     dest: "{{ mydumper_backup_install_dir }}/mydumper-backup"
     owner: root
     group: root
-    mode: 0755
+    mode: 0750
     validate: 'python -m py_compile %s'
   tags: [configuration, mydumper-backup, mydumper-backup-configuration]

@@ -33,7 +33,7 @@ for database in databases:
   {% if mydumper_backup_build_empty_files is defined and mydumper_backup_build_empty_files | bool == true -%}
   command.append('--build-empty-files')
   {% endif -%}
-  command.extend(['--outputdir', '{{ mydumper_backup_outputdir }}'])
+  command.extend(['--outputdir', os.path.join('{{ mydumper_backup_outputdir }}', database)])
   {% if mydumper_backup_verbose is defined -%}
   command.extend(['--verbose', {{ mydumper_backup_verbose | int }}])
   {% endif %}
