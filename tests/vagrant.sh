@@ -30,6 +30,13 @@ echo 'mysql-server-5.5 mysql-server/root_password_again password vagrant' | debc
 
 apt-install mysql-server;
 
+cat << EOF > ~/.my.cnf
+[client]
+host = 127.0.0.1
+user = root
+password = vagrant
+EOF
+
 # Will fail on Ubuntu 10.04 and Debian 6.0.10
 apt-install mydumper || true;
 
