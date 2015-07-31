@@ -9,9 +9,7 @@ import os
 import subprocess
 import sys
 
-
-databases = json.loads('{{ mydumper_backup_databases | to_json }}')
-for database in databases:
+def executeDumpCommand(database = None):
   command = []
   command.append(os.path.join('{{ mydumper_backup_mydumper_path }}', 'mydumper'))
   {% if mydumper_backup_host is defined -%}
@@ -23,7 +21,8 @@ for database in databases:
   {% if mydumper_backup_password is defined -%}
   command.extend(['--password', '{{ mydumper_backup_password }}'])
   {% endif -%}
-  command.extend(['--database', database])
+  if database is not None:
+    command.extend(['--database', database])
   {% if mydumper_backup_threads is defined -%}
   command.extend(['--threads', {{ mydumper_backup_threads | int }}])
   {% endif -%}
@@ -33,7 +32,10 @@ for database in databases:
   {% if mydumper_backup_build_empty_files is defined and mydumper_backup_build_empty_files | bool == true -%}
   command.append('--build-empty-files')
   {% endif -%}
-  command.extend(['--outputdir', os.path.join('{{ mydumper_backup_outputdir }}', database)])
+  if database is None:
+    command.extend(['--outputdir', '{{ mydumper_backup_outputdir }}'])
+  else:
+    command.extend(['--outputdir', os.path.join('{{ mydumper_backup_outputdir }}', database)])
   {% if mydumper_backup_verbose is defined -%}
   command.extend(['--verbose', {{ mydumper_backup_verbose | int }}])
   {% endif %}
@@ -41,5 +43,12 @@ for database in databases:
   return_value = subprocess.call(map(str, command))
   if return_value != 0:
     sys.exit(return_value)
+
+databases = json.loads('{{ mydumper_backup_databases | to_json }}')
+if databases:
+  for database in databases:
+    executeDumpCommand(database)
+else:
+  executeDumpCommand()
 
 sys.exit(0)
