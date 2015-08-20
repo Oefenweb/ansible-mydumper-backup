@@ -1,7 +1,11 @@
 # defaults file for mydumper-backup
 ---
-mydumper_backup_install_dir: /usr/local/bin
+mydumper_backup_install_path: /usr/local/bin
 mydumper_backup_mydumper_path: /usr/local/bin
+mydumper_backup_myloader_path: "{{ mydumper_backup_mydumper_path }}"
 
-mydumper_backup_databases: []
-mydumper_backup_outputdir: /tmp
+mydumper_backup_backup_databases: []
+mydumper_backup_restore_databases: "{{ mydumper_backup_backup_databases }}"
+
+mydumper_backup_backup_path: /tmp
+mydumper_backup_restore_path: "{{ mydumper_backup_backup_path }}"

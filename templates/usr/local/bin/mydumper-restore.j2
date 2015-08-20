@@ -10,10 +10,10 @@ import subprocess
 import sys
 
 
-databases = json.loads('{{ mydumper_backup_backup_databases | to_json }}')
+databases = json.loads('{{ mydumper_backup_restore_databases | to_json }}')
 for database in databases:
   command = []
-  command.append(os.path.join('{{ mydumper_backup_mydumper_path }}', 'mydumper'))
+  command.append(os.path.join('{{ mydumper_backup_myloader_path }}', 'myloader'))
   {% if mydumper_backup_host is defined -%}
   command.extend(['--host', '{{ mydumper_backup_host }}'])
   {% endif -%}
@@ -27,13 +27,10 @@ for database in databases:
   {% if mydumper_backup_threads is defined -%}
   command.extend(['--threads', {{ mydumper_backup_threads | int }}])
   {% endif -%}
-  {% if mydumper_backup_compress is defined and mydumper_backup_compress | bool == true -%}
-  command.append('--compress')
+  {% if mydumper_backup_overwrite_tables is defined and mydumper_backup_overwrite_tables | bool == true -%}
+  command.append('--overwrite-tables')
   {% endif -%}
-  {% if mydumper_backup_build_empty_files is defined and mydumper_backup_build_empty_files | bool == true -%}
-  command.append('--build-empty-files')
-  {% endif -%}
-  command.extend(['--outputdir', os.path.join('{{ mydumper_backup_backup_path }}', database)])
+  command.extend(['--directory', os.path.join('{{ mydumper_backup_restore_path }}', database)])
   {% if mydumper_backup_verbose is defined -%}
   command.extend(['--verbose', {{ mydumper_backup_verbose | int }}])
   {% endif %}
