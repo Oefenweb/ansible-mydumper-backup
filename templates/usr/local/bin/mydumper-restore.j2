@@ -20,16 +20,17 @@ thisFilePath="$(dirname "${thisFile}")";
 {% if mydumper_backup_password is defined %}
   --password '{{ mydumper_backup_password }}' \
 {% endif %}
-  --database {{ database }} \
+  --database {{ database.src | default(database.dest) }} \
 {% if mydumper_backup_threads is defined %}
   --threads {{ mydumper_backup_threads }} \
 {% endif %}
 {% if mydumper_backup_overwrite_tables is defined and mydumper_backup_overwrite_tables | bool == true %}
   --overwrite-tables \
 {% endif %}
-  --directory '{{ mydumper_backup_restore_path }}/{{ database }}' \
+  --directory '{{ mydumper_backup_restore_path }}/{{ database.dest | default(database.src) }}' \
 {% if mydumper_backup_verbose is defined %}
   --verbose {{ mydumper_backup_verbose | int }} \
 {% endif %}
 ;
+
 {% endfor %}

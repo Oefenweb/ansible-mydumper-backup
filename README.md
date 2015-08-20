@@ -14,8 +14,13 @@ Perform backups using [mydumper](https://launchpad.net/mydumper).
 * `mydumper_backup_mydumper_path`: [default: `/usr/local/bin`]: Path to `mydumper`
 * `mydumper_backup_myloader_path`: [default: `mydumper_backup_mydumper_path`]: Path to `myloader`
 
-* `mydumper_backup_backup_databases`: [default: `[]`]: Database(s) to backup
-* `mydumper_backup_restore_databases`: [default: `mydumper_backup_backup_databases`]: Database(s) to restore
+* `mydumper_backup_backup_databases`: [default: `[]`]: Backup declarations
+* `mydumper_backup_backup_databases.{n}.src`: [required]: Database name (from)
+* `mydumper_backup_backup_databases.{n}.dest`: [optional, default `src`]: Directory name (to)
+
+* `mydumper_backup_restore_databases`: [default: `mydumper_backup_backup_databases`]: Restore declarations
+* `mydumper_backup_restore_databases.{n}.src`: [required]: Database name (to)
+* `mydumper_backup_restore_databases.{n}.dest`: [optional, default `src`]: Directory name (from)
 
 * `mydumper_backup_backup_path`: [default: `/tmp`]: Directory to backup to
 * `mydumper_backup_restore_path`: [default: `mydumper_backup_backup_path`]: Directory to restore from
@@ -33,13 +38,63 @@ Perform backups using [mydumper](https://launchpad.net/mydumper).
 
 None
 
-#### Example
+## Recommended
+
+* `ansible-mydumper` ([see](https://github.com/Oefenweb/ansible-mydumper))
+
+#### Example(s)
+
+##### Simple (same src and dest)
+
+* Backup database `sakila` to directory `sakila`
+* Restore database `sakila` from directory `sakila`
 
 ```yaml
 ---
 - hosts: all
   roles:
    - mydumper-backup
+  vars:
+    mydumper_backup_backup_databases:
+      - src: sakila
+    mydumper_backup_overwrite_tables: true
+```
+
+##### Simple (different src and dest)
+
+* Backup database `sakila` to directory `alikas`
+* Restore database `sakila` from directory `alikas`
+
+```yaml
+---
+- hosts: all
+  roles:
+   - mydumper-backup
+  vars:
+    mydumper_backup_backup_databases:
+      - src: sakila
+        dest: alikas
+    mydumper_backup_overwrite_tables: true
+```
+
+##### Advance (different configuration for backup and restore and different src and dest)
+
+* Backup database `a` to directory `b`
+* Restore database `c` from directory `d`
+
+```yaml
+---
+- hosts: all
+  roles:
+   - mydumper-backup
+  vars:
+    mydumper_backup_backup_databases:
+      - src: a
+        dest: b
+    mydumper_backup_restore_databases:
+      - src: c
+        dest: d
+    mydumper_backup_overwrite_tables: true
 ```
 
 #### License

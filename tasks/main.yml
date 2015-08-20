@@ -1,15 +1,5 @@
 # tasks file for mydumper-backup
 ---
-- name: create (output) directories
-  file:
-    path: "{{ mydumper_backup_backup_path }}/{{ item }}/"
-    state: directory
-    owner: root
-    group: root
-    mode: "{{ mydumper_backup_backup_path_mode }}"
-  with_items: mydumper_backup_backup_databases
-  tags: [configuration, mydumper-backup, mydumper-backup-configuration]
-
 - name: generate (backup) script
   template:
     src: usr/local/bin/mydumper-backup.j2
