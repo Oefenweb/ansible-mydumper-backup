@@ -17,7 +17,7 @@
     owner: root
     group: root
     mode: 0750
-    validate: 'python -m py_compile %s'
+    validate: '/usr/bin/env bash -n %s'
   tags: [configuration, mydumper-backup, mydumper-backup-configuration]
 
 - name: generate (restore) script
@@ -27,5 +27,5 @@
     owner: root
     group: root
     mode: 0750
-    validate: 'python -m py_compile %s'
+    validate: '/usr/bin/env bash -n %s'
   tags: [configuration, mydumper-backup, mydumper-backup-configuration]
