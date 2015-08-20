@@ -1,2 +1,3 @@
 # vars file for mydumper-backup
 ---
+mydumper_backup_backup_path_mode: '0750'

@@ -37,7 +37,15 @@ user = root
 password = vagrant
 EOF
 
+apt-install wget;
+
 # Will fail on Ubuntu 10.04 and Debian 6.0.10
 apt-install mydumper || true;
+
+cd /tmp;
+wget http://downloads.mysql.com/docs/sakila-db.tar.gz;
+tar -xzvf sakila-db.tar.gz;
+mysql < sakila-db/sakila-schema.sql;
+mysql < sakila-db/sakila-data.sql;
 
 touch /provisioned;

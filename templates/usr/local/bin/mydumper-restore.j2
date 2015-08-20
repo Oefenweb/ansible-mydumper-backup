@@ -9,9 +9,8 @@ set -o pipefail;
 thisFile="$(readlink -f "${0}")";
 thisFilePath="$(dirname "${thisFile}")";
 
-{% for database in mydumper_backup_backup_databases %}
-mkdir -p -m {{ mydumper_backup_backup_path_mode }} '{{ mydumper_backup_backup_path }}/{{ database.dest | default(database.src) }}';
-{{ mydumper_backup_mydumper_path }}/mydumper \
+{% for database in mydumper_backup_restore_databases %}
+{{ mydumper_backup_mydumper_path }}/myloader \
 {% if mydumper_backup_host is defined %}
   --host {{ mydumper_backup_host }} \
 {% endif %}
@@ -21,17 +20,14 @@ mkdir -p -m {{ mydumper_backup_backup_path_mode }} '{{ mydumper_backup_backup_pa
 {% if mydumper_backup_password is defined %}
   --password '{{ mydumper_backup_password }}' \
 {% endif %}
-  --database {{ database.src }} \
+  --database {{ database.src | default(database.dest) }} \
 {% if mydumper_backup_threads is defined %}
   --threads {{ mydumper_backup_threads }} \
 {% endif %}
-{% if mydumper_backup_compress is defined and mydumper_backup_compress | bool == true %}
-  --compress \
+{% if mydumper_backup_overwrite_tables is defined and mydumper_backup_overwrite_tables | bool == true %}
+  --overwrite-tables \
 {% endif %}
-{% if mydumper_backup_build_empty_files is defined and mydumper_backup_build_empty_files | bool == true %}
-  --build-empty-files \
-{% endif %}
-  --outputdir '{{ mydumper_backup_backup_path }}/{{ database.dest | default(database.src) }}' \
+  --directory '{{ mydumper_backup_restore_path }}/{{ database.dest | default(database.src) }}' \
 {% if mydumper_backup_verbose is defined %}
   --verbose {{ mydumper_backup_verbose | int }} \
 {% endif %}

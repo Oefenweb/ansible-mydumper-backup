@@ -5,3 +5,9 @@
   sudo: true
   roles:
     - ../../
+  vars:
+    mydumper_backup_mydumper_path: /usr/bin
+    mydumper_backup_verbose: 3
+    mydumper_backup_backup_databases:
+      - src: sakila
+    mydumper_backup_overwrite_tables: true
