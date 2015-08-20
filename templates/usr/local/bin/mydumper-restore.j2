@@ -22,7 +22,7 @@ thisFilePath="$(dirname "${thisFile}")";
 {% endif %}
   --database {{ database.src | default(database.dest) }} \
 {% if mydumper_backup_threads is defined %}
-  --threads {{ mydumper_backup_threads }} \
+  --threads {{ mydumper_backup_threads | int }} \
 {% endif %}
 {% if mydumper_backup_overwrite_tables is defined and mydumper_backup_overwrite_tables | bool == true %}
   --overwrite-tables \

@@ -23,7 +23,7 @@ mkdir -p -m {{ mydumper_backup_backup_path_mode }} '{{ mydumper_backup_backup_pa
 {% endif %}
   --database {{ database.src }} \
 {% if mydumper_backup_threads is defined %}
-  --threads {{ mydumper_backup_threads }} \
+  --threads {{ mydumper_backup_threads | int }} \
 {% endif %}
 {% if mydumper_backup_compress is defined and mydumper_backup_compress | bool == true %}
   --compress \
