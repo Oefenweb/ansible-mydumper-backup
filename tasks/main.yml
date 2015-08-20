@@ -1,5 +1,5 @@
----
 # tasks file for mydumper-backup
+---
 - name: create (output) directories
   file:
     path: "{{ mydumper_backup_outputdir }}/{{ item }}/"
