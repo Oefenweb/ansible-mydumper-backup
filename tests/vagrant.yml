@@ -10,4 +10,7 @@
     mydumper_backup_verbose: 3
     mydumper_backup_backup_databases:
       - src: sakila
+    mydumper_backup_restore_databases:
+      - src: sakila
+        overwrite_tables: false
     mydumper_backup_overwrite_tables: true
