@@ -21,6 +21,7 @@ Perform backups using [mydumper](https://launchpad.net/mydumper).
 * `mydumper_backup_restore_databases`: [default: `mydumper_backup_backup_databases`]: Restore declarations
 * `mydumper_backup_restore_databases.{n}.src`: [required]: Database name (to)
 * `mydumper_backup_restore_databases.{n}.dest`: [optional, default `src`]: Directory name (from)
+* `mydumper_backup_restore_databases.{n}.overwrite_tables`: [optional, default `mydumper_backup_overwrite_tables`]: Drop any existing tables when restoring schemas
 
 * `mydumper_backup_backup_path`: [default: `/tmp`]: Directory to backup to
 * `mydumper_backup_restore_path`: [default: `mydumper_backup_backup_path`]: Directory to restore from

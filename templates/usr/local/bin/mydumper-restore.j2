@@ -24,7 +24,7 @@ thisFilePath="$(dirname "${thisFile}")";
 {% if mydumper_backup_threads is defined %}
   --threads {{ mydumper_backup_threads | int }} \
 {% endif %}
-{% if mydumper_backup_overwrite_tables is defined and mydumper_backup_overwrite_tables | bool == true %}
+{% if database.overwrite_tables | default(mydumper_backup_overwrite_tables is defined and mydumper_backup_overwrite_tables | bool == true) %}
   --overwrite-tables \
 {% endif %}
   --directory '{{ mydumper_backup_restore_path }}/{{ database.dest | default(database.src) }}' \
