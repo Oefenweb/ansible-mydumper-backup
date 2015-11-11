@@ -26,12 +26,14 @@ Perform backups using [mydumper](https://launchpad.net/mydumper).
 * `mydumper_backup_backup_path`: [default: `/tmp`]: Directory to backup to
 * `mydumper_backup_restore_path`: [default: `mydumper_backup_backup_path`]: Directory to restore from
 
+* `mydumper_backup_backup_threads`: [optional, default: `4`]: Number of threads to use for backup (e.g. `"{{ (ansible_processor_vcpus / 2) | round(0, 'ceil') }}"`)
+* `mydumper_backup_restore_threads`: [optional, default: `mydumper_backup_backup_threads`]: Number of threads to use for restore
+
 * `mydumper_backup_host`: [optional, default `localhost`]: The host to connect to
 * `mydumper_backup_user`: [optional]: User with privileges to run the dump
 * `mydumper_backup_password`: [optional]: User password
 
 * `mydumper_backup_verbose`: [optional, default: `2`]: The verbosity of messages (e.g. `0 = silent`, `1 = errors`, `2 = warnings`, `3 = info`)
-* `mydumper_backup_threads`: [optional, default: `4`]: Number of threads to use (e.g. `"{{ (ansible_processor_vcpus / 2) | round(0, 'ceil') }}"`)
 * `mydumper_backup_compress`: [optional, default: `false`]: Compress output files
 * `mydumper_backup_build_empty_files`: [optional, default: `false`]: Build dump files even if no data available from table
 * `mydumper_backup_overwrite_tables`: [optional, default: `false`]: Drop any existing tables when restoring schemas
