@@ -27,6 +27,9 @@ thisFilePath="$(dirname "${thisFile}")";
 {% if database.overwrite_tables | default(mydumper_backup_overwrite_tables is defined and mydumper_backup_overwrite_tables | bool == true) %}
   --overwrite-tables \
 {% endif %}
+{% if mydumper_backup_enable_binlog is defined and mydumper_backup_enable_binlog | bool == true %}
+  --enable-binlog \
+{% endif %}
   --directory '{{ mydumper_backup_restore_path }}/{{ database.dest | default(database.src) }}' \
 {% if mydumper_backup_verbose is defined %}
   --verbose {{ mydumper_backup_verbose | int }} \

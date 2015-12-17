@@ -37,6 +37,7 @@ Perform backups using [mydumper](https://launchpad.net/mydumper).
 * `mydumper_backup_compress`: [optional, default: `false`]: Compress output files
 * `mydumper_backup_build_empty_files`: [optional, default: `false`]: Build dump files even if no data available from table
 * `mydumper_backup_overwrite_tables`: [optional, default: `false`]: Drop any existing tables when restoring schemas
+* `mydumper_backup_enable_binlog`: [optional, default: `false`]: Log the data loading in the MySQL binary log if enabled
 
 ## Dependencies
 
