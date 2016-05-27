@@ -14,6 +14,9 @@ Perform backups using [mydumper](https://launchpad.net/mydumper).
 * `mydumper_backup_mydumper_path`: [default: `/usr/local/bin`]: Path to `mydumper`
 * `mydumper_backup_myloader_path`: [default: `mydumper_backup_mydumper_path`]: Path to `myloader`
 
+* `mydumper_backup_all`: [optional, default: `false`]: Whether or not to backup all databases. When true, disables databases options
+* `mydumper_backup_all_regex`: [optional]: A regular expression to match against database and table (only when `mydumper_backup_all` is true)
+
 * `mydumper_backup_backup_databases`: [default: `[]`]: Backup declarations
 * `mydumper_backup_backup_databases.{n}.src`: [required]: Database name (from)
 * `mydumper_backup_backup_databases.{n}.dest`: [optional, default `src`]: Directory name (to)
@@ -48,6 +51,36 @@ None
 * `ansible-mydumper` ([see](https://github.com/Oefenweb/ansible-mydumper))
 
 #### Example(s)
+
+##### Simple (all)
+
+* Backup all databases
+* Restore all databases
+
+```yaml
+---
+- hosts: all
+  roles:
+   - mydumper-backup
+  vars:
+    mydumper_backup_backup_all: true
+    mydumper_backup_overwrite_tables: true
+```
+
+##### Simple (all with ignore)
+
+* Backup all databases ignore `sakila`
+* Restore all databases
+
+```yaml
+---
+- hosts: all
+  roles:
+   - mydumper-backup
+  vars:
+    mydumper_backup_backup_all: true
+    mydumper_backup_backup_all_regex: '^(?!(sakila\.))'
+```
 
 ##### Simple (same src and dest)
 

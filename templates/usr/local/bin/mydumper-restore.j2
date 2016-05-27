@@ -9,6 +9,35 @@ set -o pipefail;
 thisFile="$(readlink -f "${0}")";
 thisFilePath="$(dirname "${thisFile}")";
 
+{% if mydumper_backup_all %}
+
+{{ mydumper_backup_mydumper_path }}/myloader \
+{% if mydumper_backup_host is defined %}
+  --host {{ mydumper_backup_host }} \
+{% endif %}
+{% if mydumper_backup_user is defined %}
+  --user {{ mydumper_backup_user }} \
+{% endif %}
+{% if mydumper_backup_password is defined %}
+  --password '{{ mydumper_backup_password }}' \
+{% endif %}
+{% if mydumper_backup_restore_threads is defined or mydumper_backup_backup_threads is defined %}
+  --threads {{ mydumper_backup_restore_threads | default(mydumper_backup_backup_threads) | int }} \
+{% endif %}
+{% if mydumper_backup_overwrite_tables is defined and mydumper_backup_overwrite_tables | bool == true %}
+  --overwrite-tables \
+{% endif %}
+{% if mydumper_backup_enable_binlog is defined and mydumper_backup_enable_binlog | bool == true %}
+  --enable-binlog \
+{% endif %}
+  --directory '{{ mydumper_backup_restore_path }}' \
+{% if mydumper_backup_verbose is defined %}
+  --verbose {{ mydumper_backup_verbose | int }} \
+{% endif %}
+;
+
+{% else %}
+
 {% for database in mydumper_backup_restore_databases %}
 {{ mydumper_backup_mydumper_path }}/myloader \
 {% if mydumper_backup_host is defined %}
@@ -37,3 +66,5 @@ thisFilePath="$(dirname "${thisFile}")";
 ;
 
 {% endfor %}
+
+{% endif %}
