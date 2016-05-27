@@ -4,6 +4,7 @@ mydumper_backup_install_path: /usr/local/bin
 mydumper_backup_mydumper_path: /usr/local/bin
 mydumper_backup_myloader_path: "{{ mydumper_backup_mydumper_path }}"
 
+mydumper_backup_all: false
 mydumper_backup_backup_databases: []
 mydumper_backup_restore_databases: "{{ mydumper_backup_backup_databases }}"
 
