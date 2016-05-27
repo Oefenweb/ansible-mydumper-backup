@@ -63,7 +63,7 @@ None
   roles:
    - mydumper-backup
   vars:
-    mydumper_backup_backup_all: true
+    mydumper_backup_all: true
     mydumper_backup_overwrite_tables: true
 ```
 
@@ -78,8 +78,8 @@ None
   roles:
    - mydumper-backup
   vars:
-    mydumper_backup_backup_all: true
-    mydumper_backup_backup_all_regex: '^(?!(sakila\.))'
+    mydumper_backup_all: true
+    mydumper_backup_all_regex: '^(?!(sakila\.))'
 ```
 
 ##### Simple (same src and dest)
