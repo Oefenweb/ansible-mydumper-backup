@@ -1,6 +1,6 @@
 ## mydumper-backup
 
-[![Build Status](https://travis-ci.org/Oefenweb/ansible-mydumper-backup.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-mydumper-backup) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-mydumper--backup-blue.svg)](https://galaxy.ansible.com/list#/roles/3746)
+[![Build Status](https://travis-ci.org/Oefenweb/ansible-mydumper-backup.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-mydumper-backup) [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-mydumper--backup-blue.svg)](https://galaxy.ansible.com/tersmitten/mydumper-backup)
 
 Perform backups using [mydumper](https://launchpad.net/mydumper).
 
@@ -61,7 +61,7 @@ None
 ---
 - hosts: all
   roles:
-   - mydumper-backup
+    - mydumper-backup
   vars:
     mydumper_backup_all: true
     mydumper_backup_overwrite_tables: true
@@ -76,7 +76,7 @@ None
 ---
 - hosts: all
   roles:
-   - mydumper-backup
+    - mydumper-backup
   vars:
     mydumper_backup_all: true
     mydumper_backup_all_regex: '^(?!(sakila\.))'
@@ -91,7 +91,7 @@ None
 ---
 - hosts: all
   roles:
-   - mydumper-backup
+    - mydumper-backup
   vars:
     mydumper_backup_backup_databases:
       - src: sakila
@@ -107,7 +107,7 @@ None
 ---
 - hosts: all
   roles:
-   - mydumper-backup
+    - mydumper-backup
   vars:
     mydumper_backup_backup_databases:
       - src: sakila
@@ -124,7 +124,7 @@ None
 ---
 - hosts: all
   roles:
-   - mydumper-backup
+    - mydumper-backup
   vars:
     mydumper_backup_backup_databases:
       - src: a
