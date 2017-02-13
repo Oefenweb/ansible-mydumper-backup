@@ -23,14 +23,12 @@ apt-install debconf-utils;
 
 echo 'mysql-server mysql-server/root_password password vagrant' | debconf-set-selections;
 echo 'mysql-server mysql-server/root_password_again password vagrant' | debconf-set-selections;
-echo 'mysql-server-5.1 mysql-server/root_password password vagrant' | debconf-set-selections;
-echo 'mysql-server-5.1 mysql-server/root_password_again password vagrant' | debconf-set-selections;
 echo 'mysql-server-5.5 mysql-server/root_password password vagrant' | debconf-set-selections;
 echo 'mysql-server-5.5 mysql-server/root_password_again password vagrant' | debconf-set-selections;
 echo 'mysql-server-5.6 mysql-server/root_password password vagrant' | debconf-set-selections;
 echo 'mysql-server-5.6 mysql-server/root_password_again password vagrant' | debconf-set-selections;
 
-apt-install mysql-server;
+apt-install mysql-server wget mydumper;
 
 cat << EOF > ~/.my.cnf
 [client]
@@ -39,15 +37,13 @@ user = root
 password = vagrant
 EOF
 
-apt-install wget;
-
-# Will fail on Ubuntu 10.04 and Debian 6.0.10
-apt-install mydumper || true;
-
-cd /tmp;
-wget http://downloads.mysql.com/docs/sakila-db.tar.gz;
-tar -xzvf sakila-db.tar.gz;
-mysql < sakila-db/sakila-schema.sql;
-mysql < sakila-db/sakila-data.sql;
+# To prevent: ERROR 1214 (HY000) at line 175: The used table type doesn't support FULLTEXT indexes
+if [ "$(lsb_release -c -s)" == 'xenial' ]; then
+  cd /tmp;
+  wget https://downloads.mysql.com/docs/sakila-db.tar.gz;
+  tar -xzvf sakila-db.tar.gz;
+  mysql < sakila-db/sakila-schema.sql;
+  mysql < sakila-db/sakila-data.sql;
+fi
 
 touch /provisioned;
