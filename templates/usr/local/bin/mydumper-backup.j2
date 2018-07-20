@@ -38,6 +38,9 @@ mkdir -p -m {{ mydumper_backup_backup_path_mode }} '{{ mydumper_backup_backup_pa
 {% if mydumper_backup_all_regex is defined %}
   --regex '{{ mydumper_backup_all_regex }}' \
 {% endif %}
+{% if mydumper_backup_triggers is defined and mydumper_backup_triggers | bool == true %}
+  --triggers \
+{% endif %}
 ;
 
 {% else %}
@@ -67,6 +70,9 @@ mkdir -p -m {{ mydumper_backup_backup_path_mode }} '{{ mydumper_backup_backup_pa
   --outputdir '{{ mydumper_backup_backup_path }}/{{ database.dest | default(database.src) }}' \
 {% if mydumper_backup_verbose is defined %}
   --verbose {{ mydumper_backup_verbose | int }} \
+{% endif %}
+{% if mydumper_backup_triggers is defined and mydumper_backup_triggers | bool == true %}
+  --triggers \
 {% endif %}
 ;
 
