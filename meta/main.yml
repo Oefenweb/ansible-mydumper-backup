@@ -1,6 +1,7 @@
 # meta file for mydumper-backup
 ---
 galaxy_info:
+  role_name: mydumper-backup
   author: Mischa ter Smitten
   company: Oefenweb.nl B.V.
   description: Perform backups using mydumper
