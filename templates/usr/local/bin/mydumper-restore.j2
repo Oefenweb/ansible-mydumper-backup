@@ -9,7 +9,7 @@ set -o pipefail;
 thisFile="$(readlink -f "${0}")";
 thisFilePath="$(dirname "${thisFile}")";
 
-{% if mydumper_backup_all %}
+{% if mydumper_backup_restore_all | default(mydumper_backup_all)  %}
 
 {{ mydumper_backup_mydumper_path }}/myloader \
 {% if mydumper_backup_host is defined %}
