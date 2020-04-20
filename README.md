@@ -21,6 +21,7 @@ Perform backups using [mydumper](https://launchpad.net/mydumper).
 * `mydumper_backup_backup_databases.{n}.src`: [required]: Database name (from)
 * `mydumper_backup_backup_databases.{n}.dest`: [optional, default `src`]: Directory name (to)
 
+* `mydumper_backup_restore_all`: [optional, default: `mydumper_backup_all`]: Whether or not to restore all databases. When true, disables databases options
 * `mydumper_backup_restore_databases`: [default: `mydumper_backup_backup_databases`]: Restore declarations
 * `mydumper_backup_restore_databases.{n}.src`: [required]: Database name (to)
 * `mydumper_backup_restore_databases.{n}.dest`: [optional, default `src`]: Directory name (from)
