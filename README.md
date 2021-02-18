@@ -1,6 +1,6 @@
 ## mydumper-backup
 
-[![Build Status](https://travis-ci.org/Oefenweb/ansible-mydumper-backup.svg?branch=master)](https://travis-ci.org/Oefenweb/ansible-mydumper-backup)
+[![CI](https://github.com/Oefenweb/ansible-mydumper-backup/workflows/CI/badge.svg)](https://github.com/Oefenweb/ansible-mydumper-backup/actions?query=workflow%3ACI)
 [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-mydumper--backup-blue.svg)](https://galaxy.ansible.com/Oefenweb/mydumper-backup)
 
 Perform backups using [mydumper](https://launchpad.net/mydumper).
