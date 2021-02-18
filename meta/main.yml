@@ -19,7 +19,7 @@ galaxy_info:
         - stretch
         - buster
   galaxy_tags:
-  - system
-  - database
-  - web
+    - system
+    - database
+    - web
 dependencies: []
