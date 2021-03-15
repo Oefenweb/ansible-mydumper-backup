@@ -1,4 +1,4 @@
-# tasks file for mydumper-backup
+# tasks file
 ---
 - name: generate (backup) script
   template:

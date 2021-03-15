@@ -1,4 +1,4 @@
-# test file for mydumper-backup
+# test file
 ---
 - hosts: all
   remote_user: vagrant

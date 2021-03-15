@@ -1,4 +1,4 @@
-# defaults file for mydumper-backup
+# defaults file
 ---
 mydumper_backup_install_path: /usr/local/bin
 mydumper_backup_mydumper_path: /usr/local/bin
