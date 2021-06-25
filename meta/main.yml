@@ -2,7 +2,7 @@
 ---
 galaxy_info:
   namespace: oefenweb
-  role_name: mydumper-backup
+  role_name: mydumper_backup
   author: Mischa ter Smitten
   company: Oefenweb.nl B.V.
   description: Perform backups using mydumper
