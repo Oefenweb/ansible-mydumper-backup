@@ -1,7 +1,7 @@
 # tasks file
 ---
 - name: generate (backup) script
-  template:
+  ansible.builtin.template:
     src: usr/local/bin/mydumper-backup.j2
     dest: "{{ mydumper_backup_install_path }}/mydumper-backup"
     owner: root
@@ -14,7 +14,7 @@
     - mydumper-backup-configuration
 
 - name: generate (restore) script
-  template:
+  ansible.builtin.template:
     src: usr/local/bin/mydumper-restore.j2
     dest: "{{ mydumper_backup_install_path }}/mydumper-restore"
     owner: root
