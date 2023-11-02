@@ -64,7 +64,7 @@ None
 ---
 - hosts: all
   roles:
-    - mydumper-backup
+    - oefenweb.mydumper-backup
   vars:
     mydumper_backup_all: true
     mydumper_backup_overwrite_tables: true
@@ -79,7 +79,7 @@ None
 ---
 - hosts: all
   roles:
-    - mydumper-backup
+    - oefenweb.mydumper-backup
   vars:
     mydumper_backup_all: true
     mydumper_backup_all_regex: '^(?!(sakila\.))'
@@ -94,7 +94,7 @@ None
 ---
 - hosts: all
   roles:
-    - mydumper-backup
+    - oefenweb.mydumper-backup
   vars:
     mydumper_backup_backup_databases:
       - src: sakila
@@ -110,7 +110,7 @@ None
 ---
 - hosts: all
   roles:
-    - mydumper-backup
+    - oefenweb.mydumper-backup
   vars:
     mydumper_backup_backup_databases:
       - src: sakila
@@ -127,7 +127,7 @@ None
 ---
 - hosts: all
   roles:
-    - mydumper-backup
+    - oefenweb.mydumper-backup
   vars:
     mydumper_backup_backup_databases:
       - src: a
