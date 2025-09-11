@@ -15,20 +15,22 @@ Perform backups using [mydumper](https://launchpad.net/mydumper).
 * `mydumper_backup_mydumper_path`: [default: `/usr/local/bin`]: Path to `mydumper`
 * `mydumper_backup_myloader_path`: [default: `mydumper_backup_mydumper_path`]: Path to `myloader`
 
-* `mydumper_backup_all`: [optional, default: `false`]: Whether or not to backup all databases. When true, disables databases options
+* `mydumper_backup_all`: [optional, default: `false`]: Whether to back up all databases. When true, disables databases options
+* `mydumper_backup_options`: [default: `{}`]: Arbitrary options (passed to `mydumper`) (e.g. `{trx-tables: '', defaults-extra-file: ~/.my.cnf, clear: ''}`)
 * `mydumper_backup_all_regex`: [optional]: A regular expression to match against database and table (only when `mydumper_backup_all` is true)
 
 * `mydumper_backup_backup_databases`: [default: `[]`]: Backup declarations
 * `mydumper_backup_backup_databases.{n}.src`: [required]: Database name (from)
 * `mydumper_backup_backup_databases.{n}.dest`: [optional, default `src`]: Directory name (to)
 
-* `mydumper_backup_restore_all`: [optional, default: `mydumper_backup_all`]: Whether or not to restore all databases. When true, disables databases options
+* `mydumper_backup_restore_all`: [optional, default: `mydumper_backup_all`]: Whether to restore all databases. When true, disables databases options
+* `mydumper_backup_restore_options`: [default: `{}`]: Arbitrary options (passed to `myloader`)
 * `mydumper_backup_restore_databases`: [default: `mydumper_backup_backup_databases`]: Restore declarations
 * `mydumper_backup_restore_databases.{n}.src`: [required]: Database name (to)
 * `mydumper_backup_restore_databases.{n}.dest`: [optional, default `src`]: Directory name (from)
 * `mydumper_backup_restore_databases.{n}.overwrite_tables`: [optional, default `mydumper_backup_overwrite_tables`]: Drop any existing tables when restoring schemas
 
-* `mydumper_backup_backup_path`: [default: `/tmp`]: Directory to backup to
+* `mydumper_backup_backup_path`: [default: `/tmp`]: Directory to back up to
 * `mydumper_backup_restore_path`: [default: `mydumper_backup_backup_path`]: Directory to restore from
 
 * `mydumper_backup_backup_threads`: [optional, default: `4`]: Number of threads to use for backup (e.g. `"{{ (ansible_processor_vcpus / 2) | round(0, 'ceil') }}"`)
@@ -41,7 +43,7 @@ Perform backups using [mydumper](https://launchpad.net/mydumper).
 * `mydumper_backup_verbose`: [optional, default: `2`]: The verbosity of messages (e.g. `0 = silent`, `1 = errors`, `2 = warnings`, `3 = info`)
 * `mydumper_backup_compress`: [optional, default: `false`]: Compress output files
 * `mydumper_backup_build_empty_files`: [optional, default: `false`]: Build dump files even if no data available from table
-* `mydumper_backup_triggers`: [optional, default: `false`]: Whether or not to dump triggers
+* `mydumper_backup_triggers`: [optional, default: `false`]: Whether to dump triggers
 * `mydumper_backup_overwrite_tables`: [optional, default: `false`]: Drop any existing tables when restoring schemas
 * `mydumper_backup_enable_binlog`: [optional, default: `false`]: Log the data loading in the MySQL binary log if enabled
 

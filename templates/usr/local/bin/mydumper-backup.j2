@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# {{ ansible_managed }}
+{{ ansible_managed | comment }}
 #
 # set -x;
 set -e;
@@ -41,6 +41,9 @@ mkdir -p -m {{ mydumper_backup_backup_path_mode }} '{{ mydumper_backup_backup_pa
 {% if mydumper_backup_triggers is defined and mydumper_backup_triggers | bool == true %}
   --triggers \
 {% endif %}
+{% for key, value in mydumper_backup_options.items() | sort %}
+  --{{ key }} {{ value }} \
+{% endfor %}
 ;
 
 {% else %}
@@ -74,6 +77,9 @@ mkdir -p -m {{ mydumper_backup_backup_path_mode }} '{{ mydumper_backup_backup_pa
 {% if mydumper_backup_triggers is defined and mydumper_backup_triggers | bool == true %}
   --triggers \
 {% endif %}
+{% for key, value in mydumper_backup_options.items() | sort %}
+  --{{ key }} {{ value }} \
+{% endfor %}
 ;
 
 {% endfor %}

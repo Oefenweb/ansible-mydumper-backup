@@ -6,7 +6,7 @@
     dest: "{{ mydumper_backup_install_path }}/mydumper-backup"
     owner: root
     group: root
-    mode: 0750
+    mode: '0750'
     validate: '/usr/bin/env bash -n %s'
   tags:
     - configuration
@@ -19,7 +19,7 @@
     dest: "{{ mydumper_backup_install_path }}/mydumper-restore"
     owner: root
     group: root
-    mode: 0750
+    mode: '0750'
     validate: '/usr/bin/env bash -n %s'
   tags:
     - configuration
