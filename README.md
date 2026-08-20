@@ -33,7 +33,7 @@ Perform backups using [mydumper](https://launchpad.net/mydumper).
 * `mydumper_backup_backup_path`: [default: `/tmp`]: Directory to back up to
 * `mydumper_backup_restore_path`: [default: `mydumper_backup_backup_path`]: Directory to restore from
 
-* `mydumper_backup_backup_threads`: [optional, default: `4`]: Number of threads to use for backup (e.g. `"{{ (ansible_processor_vcpus / 2) | round(0, 'ceil') }}"`)
+* `mydumper_backup_backup_threads`: [optional, default: `4`]: Number of threads to use for backup (e.g. `"{{ (ansible_facts['processor_vcpus'] / 2) | round(0, 'ceil') }}"`)
 * `mydumper_backup_restore_threads`: [optional, default: `mydumper_backup_backup_threads`]: Number of threads to use for restore
 
 * `mydumper_backup_host`: [optional, default `localhost`]: The host to connect to
